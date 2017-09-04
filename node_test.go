@@ -3,14 +3,15 @@ package relay_test
 import (
 	"errors"
 	"fmt"
+	"reflect"
+	"testing"
+
+	"github.com/StudioSol/relay"
 	"github.com/graphql-go/graphql"
 	"github.com/graphql-go/graphql/gqlerrors"
 	"github.com/graphql-go/graphql/language/location"
 	"github.com/graphql-go/graphql/testutil"
-	"github.com/graphql-go/relay"
 	"golang.org/x/net/context"
-	"reflect"
-	"testing"
 )
 
 type user struct {
@@ -46,14 +47,14 @@ var nodeTestDef = relay.NewNodeDefinitions(relay.NodeDefinitionsConfig{
 		}
 		return nil, errors.New("Unknown node")
 	},
-	TypeResolve: func(value interface{}, info graphql.ResolveInfo) *graphql.Object {
-		switch value.(type) {
+	TypeResolve: func(p graphql.ResolveTypeParams) *graphql.Object {
+		switch p.Value.(type) {
 		case *user:
 			return nodeTestUserType
 		case *photo:
 			return nodeTestPhotoType
 		default:
-			panic(fmt.Sprintf("Unknown object type `%v`", value))
+			panic(fmt.Sprintf("Unknown object type `%v`", p.Value))
 		}
 	},
 })
