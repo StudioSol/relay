@@ -6,11 +6,11 @@ import (
 	"testing"
 	"time"
 
+	"github.com/StudioSol/relay"
 	"github.com/graphql-go/graphql"
 	"github.com/graphql-go/graphql/gqlerrors"
 	"github.com/graphql-go/graphql/language/location"
 	"github.com/graphql-go/graphql/testutil"
-	"github.com/graphql-go/relay"
 	"golang.org/x/net/context"
 )
 
@@ -28,7 +28,7 @@ var simpleMutationTest = relay.MutationWithClientMutationID(relay.MutationConfig
 			Type: graphql.Int,
 		},
 	},
-	MutateAndGetPayload: func(inputMap map[string]interface{}, info graphql.ResolveInfo, ctx context.Context) (map[string]interface{}, error) {
+	MutateAndGetPayload: func(ctx context.Context, inputMap map[string]interface{}, info graphql.ResolveInfo) (map[string]interface{}, error) {
 		return map[string]interface{}{
 			"result": 1,
 		}, nil
@@ -45,7 +45,7 @@ var simpleMutationErrorTest = relay.MutationWithClientMutationID(relay.MutationC
 			Type: graphql.Int,
 		},
 	},
-	MutateAndGetPayload: func(inputMap map[string]interface{}, info graphql.ResolveInfo, ctx context.Context) (map[string]interface{}, error) {
+	MutateAndGetPayload: func(ctx context.Context, inputMap map[string]interface{}, info graphql.ResolveInfo) (map[string]interface{}, error) {
 		return map[string]interface{}(nil), NotFoundError
 	},
 })
@@ -59,7 +59,7 @@ var simplePromiseMutationTest = relay.MutationWithClientMutationID(relay.Mutatio
 			Type: graphql.Int,
 		},
 	},
-	MutateAndGetPayload: func(inputMap map[string]interface{}, info graphql.ResolveInfo, ctx context.Context) (map[string]interface{}, error) {
+	MutateAndGetPayload: func(ctx context.Context, inputMap map[string]interface{}, info graphql.ResolveInfo) (map[string]interface{}, error) {
 		c := make(chan int)
 		go testAsyncDataMutation(&c)
 		result := <-c

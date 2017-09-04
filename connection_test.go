@@ -3,7 +3,7 @@ package relay_test
 import (
 	"github.com/graphql-go/graphql"
 	"github.com/graphql-go/graphql/testutil"
-	"github.com/graphql-go/relay"
+	"github.com/StudioSol/relay"
 	"reflect"
 	"testing"
 )

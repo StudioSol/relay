@@ -5,7 +5,7 @@ import (
 	"golang.org/x/net/context"
 )
 
-type MutationFn func(inputMap map[string]interface{}, info graphql.ResolveInfo, ctx context.Context) (map[string]interface{}, error)
+type MutationFn func(ctx context.Context, inputMap map[string]interface{}, info graphql.ResolveInfo) (map[string]interface{}, error)
 
 /*
 A description of a mutation consumable by mutationWithClientMutationId
@@ -34,7 +34,6 @@ provided MutationConfig.
 */
 
 func MutationWithClientMutationID(config MutationConfig) *graphql.Field {
-
 	augmentedInputFields := config.InputFields
 	if augmentedInputFields == nil {
 		augmentedInputFields = graphql.InputObjectConfigFieldMap{}
@@ -76,7 +75,7 @@ func MutationWithClientMutationID(config MutationConfig) *graphql.Field {
 					input = inputVal
 				}
 			}
-			payload, err := config.MutateAndGetPayload(input, p.Info, p.Context)
+			payload, err := config.MutateAndGetPayload(p.Context, input, p.Info)
 			if err != nil {
 				return nil, err
 			}

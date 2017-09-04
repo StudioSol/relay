@@ -2,8 +2,9 @@ package starwars
 
 import (
 	"errors"
+
+	"github.com/StudioSol/relay"
 	"github.com/graphql-go/graphql"
-	"github.com/graphql-go/relay"
 	"golang.org/x/net/context"
 )
 
@@ -118,9 +119,9 @@ func init() {
 				return nil, errors.New("Unknown node type")
 			}
 		},
-		TypeResolve: func(value interface{}, info graphql.ResolveInfo) *graphql.Object {
+		TypeResolve: func(p graphql.ResolveTypeParams) *graphql.Object {
 			// based on the type of the value, return GraphQLObjectType
-			switch value.(type) {
+			switch p.Value.(type) {
 			case *Faction:
 				return factionType
 			default:
@@ -296,7 +297,7 @@ func init() {
 				},
 			},
 		},
-		MutateAndGetPayload: func(inputMap map[string]interface{}, info graphql.ResolveInfo, ctx context.Context) (map[string]interface{}, error) {
+		MutateAndGetPayload: func(ctx context.Context, inputMap map[string]interface{}, info graphql.ResolveInfo) (map[string]interface{}, error) {
 			// `inputMap` is a map with keys/fields as specified in `InputFields`
 			// Note, that these fields were specified as non-nullables, so we can assume that it exists.
 			shipName := inputMap["shipName"].(string)
