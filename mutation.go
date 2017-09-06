@@ -26,6 +26,7 @@ type MutationConfig struct {
 	InputFields         graphql.InputObjectConfigFieldMap `json:"inputFields"`
 	OutputFields        graphql.Fields                    `json:"outputFields"`
 	MutateAndGetPayload MutationFn                        `json:"mutateAndGetPayload"`
+	Description         string                            `json:"description"`
 }
 
 /*
@@ -84,5 +85,6 @@ func MutationWithClientMutationID(config MutationConfig) *graphql.Field {
 			}
 			return payload, nil
 		},
+		Description: config.Description,
 	}
 }
