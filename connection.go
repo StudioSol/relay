@@ -82,7 +82,7 @@ func ConnectionDefinitions(config ConnectionConfig) *GraphQLConnectionDefinition
 		Description: "An edge in a connection",
 		Fields: graphql.Fields{
 			"node": &graphql.Field{
-				Type:        config.NodeType,
+				Type:        graphql.NewNonNull(config.NodeType),
 				Description: "The item at the end of the edge",
 			},
 			"cursor": &graphql.Field{
