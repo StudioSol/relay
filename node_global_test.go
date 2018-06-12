@@ -7,8 +7,8 @@ import (
 	"testing"
 
 	"github.com/StudioSol/relay"
-	"github.com/graphql-go/graphql"
-	"github.com/graphql-go/graphql/testutil"
+	"github.com/StudioSol/graphql"
+	"github.com/StudioSol/graphql/testutil"
 	"golang.org/x/net/context"
 )
 
