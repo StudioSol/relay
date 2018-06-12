@@ -4,7 +4,7 @@ import (
 	"errors"
 
 	"github.com/StudioSol/relay"
-	"github.com/graphql-go/graphql"
+	"github.com/StudioSol/graphql"
 	"golang.org/x/net/context"
 )
 
