@@ -108,6 +108,10 @@ func ConnectionDefinitions(config ConnectionConfig) *GraphQLConnectionDefinition
 				Type:        graphql.NewList(edgeType),
 				Description: "Information to aid in pagination.",
 			},
+			"total": &graphql.Field{
+				Type:        graphql.Int,
+				Description: "The total of itens",
+			},
 		},
 	})
 	for fieldName, fieldConfig := range config.ConnectionFields {

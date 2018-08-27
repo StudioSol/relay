@@ -112,6 +112,7 @@ func ConnectionFromArraySlice(
 		HasPreviousPage: hasPreviousPage,
 		HasNextPage:     hasNextPage,
 	}
+	conn.Total = meta.ArrayLength
 
 	return conn
 }
